@@ -1,13 +1,13 @@
-name: Analista Deportivo
+import os
+import requests
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 13 * * *"
+TOKEN = os.environ["TELEGRAM_TOKEN"]
 
-jobs:
-  ejecutar:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Ejecutar bot
-        run: python bot.py
+def enviar_mensaje(chat_id, texto):
+    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+    requests.post(url, json={
+        "chat_id": chat_id,
+        "text": texto
+    })
+
+print("Analista Deportivo conectado")
